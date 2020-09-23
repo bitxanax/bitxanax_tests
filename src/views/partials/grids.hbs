@@ -1,0 +1,46 @@
+
+<div class="container grids grid-texto play-indi">
+    <div  style="padding-top: 8%;   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; " >
+        <h2 class="balsa-font">¿Cómo lo hacemos?</h2>
+    </div>
+     
+  <div class="row" style="padding-top:1px; marging-top:1px; margin-bottom:auto;">
+
+    <div class="col-sm row-item card" >
+       <div class="circulo "><h4 class="rubik-font">1</h4></div>
+       <img src="img/menu.png" alt="">
+     <h3>Elije tu menu</h3>
+    </div>
+
+    <div class="col-sm row-item card" style="margin-left:60px; margin-right:60px;">
+      <div class="circulo"><h4 class="rubik-font"> 2</h4></div>
+      <img src="img/pago.png" alt="">
+        <h3>Escoge tu método de pago</h3>
+    </div>
+
+    <div class="col-sm row-item card">
+       <div class="circulo"><h4 class="rubik-font">3</h4></div>
+       <img src="img/entrega.png" alt="">
+         <h3>Te lo entregamos</h3>
+    </div>
+
+  </div>
+</div>
+
+
+
+<script>
+    var indiParam = anime({
+  targets: '.circulo',
+  translateY: {
+    value:5
+  },
+  rotate: {
+    value: '20.125turn'
+  },
+  duration: 10000,
+  autoplay: true
+});
+
+document.querySelector('.play-indi').onclick = indiParam.restart;
+</script>

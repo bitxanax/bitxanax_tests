@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>Ukelele Tunner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- p5 -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/0.9.0/p5.min.js"></script>
+
+  <!-- ml5 -->
+  <script src="https://unpkg.com/ml5@0.4.3/dist/ml5.min.js"></script>
+  <!--CSS-->
+  <link rel="stylesheet" href="./tun_style.css" type="text/css">
+  <!--Javascript: Ukelele Tunner-->
+  <script src=""></script>
+</head>
+
+<body>
+  <button id="start_button">Iniciar</button>
+  <script>
+
+    let context = new AudioContext();
+    let pitch;
+    let freq = 0;
+    //const model = './mod';
+    const url_model = 'https://cdn.jsdelivr.net/gh/ml5js/ml5-data-and-models/models/pitch-detection/crepe/';
+    let mic = new p5.AudioIn();
+
+
+    function setup() {
+      createCanvas(1430, 600);
+      document.getElementById('start_button').addEventListener('click', function () {
+        context = getAudioContext();
+        context.resume().then(() => {
+          console.log('Playback resumed successfully');
+        });
+      });
+
+      mic.start(listening);
+    }
+
+
+
+    function listening() {
+      console.log('listening');
+      pitch = ml5.pitchDetection(
+        url_model,
+        context,
+        mic.stream,
+        modelLoaded
+      );
+      context.resume();
+    }
+
+    function gotPitch(error, frequency) {
+      if (error) {
+        console.error(error);
+      } else {
+        console.log(frequency);
+      }
+      pitch.getPitch(gotPitch)
+      if (frequency == null) {
+        frequency = 0;
+      }
+      freq = frequency.toFixed(2);
+    }
+
+    function modelLoaded() {
+      console.log("Model Loaded!");
+      pitch.getPitch(gotPitch);
+    }
+
+    function draw() {
+      background("#00ffff");
+      textAlign(CENTER, CENTER);
+      fill(255);
+      textSize(64);
+      text(freq, width / 2, height-100);
+    }
+
+
+  </script>
+
+</body>
+</html> 
