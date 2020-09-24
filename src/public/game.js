@@ -1,4 +1,6 @@
-let clouds,bird,face,gameOver,div,btn,title,hasLost = false,balancer;
+
+
+let clouds,bird,face,gameOver,div,btn,title = null,hasLost = false,balancer;
 var r,g,b;
 var music;
 var score;
@@ -35,7 +37,7 @@ function setup() {
   btn.style('border', '4px solid #F9F871'); 
   btn.style('border-radius', '12px'); 
   btn.style('font-size', '45px'); 
-  btn.style('width', '600px');
+  btn.style('width', '400px');
   btn.style('height', '70px');
   btn.mousePressed(newGame);
   btn.center();
@@ -46,6 +48,8 @@ function setup() {
   score_text = createP('Your Score:');
   score_text.style('width', '300px');
   score_text.style('height', '70px');
+  score_text.style('font-size', '30px');
+  score_text.style('color', 'white');
   score_text.style('display', 'inline-block');
   score_text.position(10,5);
 
@@ -92,10 +96,10 @@ function draw() {
   
 
       for (var i = 0; i < clouds.length; i++) {
-        count+=1;
+        count+=1/200;
         
         cloudGenerator(i);
-        showScore(count);
+        showScore(parseInt(count));
         if (clouds[i].position.x > width) {
           clouds[i].position.x = 0;
         }
@@ -132,7 +136,7 @@ function die() {
   //gameOver = true;
   hasLost = true;
   music.stop();
-  
+  score_text.position(width/2-width/15, height-300);
   gameOver_sound.play();
 }
 
@@ -160,7 +164,7 @@ function newGame() {
     //music flip
     gameOver_sound.stop();
     music.play();
-    
+    score_text.position(10,5);
   
   }
 
@@ -180,5 +184,5 @@ function mousePressed() {
 }
 
 function showScore(score){
-  score_text.html(score);
+  score_text.html("Your Score: "+ score);
 }
